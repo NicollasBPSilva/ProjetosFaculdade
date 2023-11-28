@@ -1,0 +1,49 @@
+package Controller;
+
+import java.time.LocalDateTime;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import ch.qos.logback.core.model.Model;
+
+@Controller
+@RequestMapping("/curriculo")
+public class Project_Controller {
+
+	@GetMapping("/documento")
+	public String saudar1(Model modelo) {
+		return "mensagem-view";
+	}
+	
+	@GetMapping("/documento2")
+	public ModelAndView saudar2() {
+		return new ModelAndView ("mensagem-view");
+	}
+	
+	@GetMapping("/dados-pessoais")
+	public ModelAndView dadosPessoais() {
+	 ModelAndView mv = new ModelAndView("view-exemplo");
+	 mv.addObject("nome", "Nicollas Bruno Pires da Silva");
+	 mv.addObject("telefone", "(11)98390-6553");
+	 mv.addObject("dataNascimento", "01/05/2001");
+	 mv.addObject("e-mail", "Nicollasbrn614@gmail.com");
+	 mv.addObject("github", "https://github.com/NicollasBPSilva");
+	 mv.addObject("dataHora", LocalDateTime.now());
+	 return mv;
+	}
+
+//	@PostMapping("/salvar")
+//	public ModelAndView salvar(
+//	 @ModelAttribute("dados") Dados dadosRecebidos,
+//	 RedirectAttributes redirAttr) {
+//	 ModelAndView mv = new ModelAndView("redirect:/resultado");
+//	 redirAttr.addFlashAttribute("dados", dadosRecebidos);
+//	 return mv;
+//	}
+}

@@ -1,0 +1,3 @@
+Relação entre padrões de arquitetura e design pattern
+
+Enquanto a arquitetura do software é responsável pelo esqueleto e pela infraestrutura de alto nível de um software, o design do software é responsável pelo design do nível de código, como o que cada módulo está fazendo, o escopo das classes e os objetivos das funções, etc.

@@ -1,0 +1,104 @@
+package negocio;
+
+import static org.junit.Assert.*;
+import static org.hamcrest.CoreMatchers.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+public class GerenciadoraClientesTest {
+
+	private GerenciadoraClientes gerClientes;
+	private int idCliente01 = 1;
+	private int idCliente02 = 2;
+	
+	@Before
+	public void setup(){
+		Cliente cliente01 = new Cliente(idCliente01, "João", 31, "joao@gmail.com", 1, true);
+		Cliente cliente02 = new Cliente(idCliente02, "Maria", 34, "maria@gmail.com", 1, true);
+		
+		List<Cliente> clientesDoBanco = new ArrayList<>();
+		clientesDoBanco.add(cliente01);
+		clientesDoBanco.add(cliente02);
+		
+		gerClientes = new GerenciadoraClientes(clientesDoBanco);
+	}
+	
+	@After
+	public void tearDown() {
+		gerClientes.limpa();
+	}
+	
+	@Test
+	public void testPesquisaCliente() {
+		
+		Cliente cliente = gerClientes.pesquisaCliente(idCliente01);
+		assertThat(cliente.getId(), is(idCliente01));
+	}
+	
+	@Test
+	public void testRemoveCliente() {
+		
+		boolean clienteRemovido = gerClientes.removeCliente(idCliente02);
+		
+		assertThat(clienteRemovido, is(true));
+		assertThat(gerClientes.getClientesDoBanco().size(), is(1));
+		assertNull(gerClientes.pesquisaCliente(idCliente02));
+	}
+	
+	@Test
+	public void testValidaIdadeAbaixo() throws IdadeNaoPermitidaException {
+		
+		try {
+			boolean testValidaIdade = gerClientes.validaIdade(17);
+			assertTrue(testValidaIdade); 
+			
+		} catch (Exception e){
+			assertThat(e.getMessage(), equalTo("A idade do cliente precisa estar entre 18 e 65 anos."));
+		}
+		
+	}
+	
+	@Test
+	public void testValidaIdadeLimiteMenor() throws IdadeNaoPermitidaException {
+		
+		try {
+			boolean testValidaIdade = gerClientes.validaIdade(18);
+			assertTrue(testValidaIdade); 
+			
+		} catch (Exception e){
+			assertThat(e.getMessage(), equalTo("A idade do cliente precisa estar entre 18 e 65 anos."));
+		}
+		
+	}
+	
+	@Test
+	public void testValidaIdadeLimiteMaior() throws IdadeNaoPermitidaException {
+		
+		try {
+			boolean testValidaIdade = gerClientes.validaIdade(65);
+			assertTrue(testValidaIdade); 
+			
+		} catch (Exception e){
+			assertThat(e.getMessage(), equalTo("A idade do cliente precisa estar entre 18 e 65 anos."));
+		}
+		
+	}
+	
+	@Test
+	public void testValidaIdadeAcima() throws IdadeNaoPermitidaException {
+		
+		try {
+			boolean testValidaIdade = gerClientes.validaIdade(66);
+			assertTrue(testValidaIdade); 
+			
+		} catch (Exception e){
+			assertThat(e.getMessage(), equalTo("A idade do cliente precisa estar entre 18 e 65 anos."));
+		}
+		
+	}
+}

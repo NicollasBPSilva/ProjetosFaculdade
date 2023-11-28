@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Exemplo Spring MVC</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		 <div>
+		 <h1>Meu Curriculo</h1>
+		 <p th:text="${nome}">Nome:</p>
+		 <p th:text="${telefone}">Telefone:</p>
+		 <p th:text="${idade}">Idade:</p>
+		 <p th:text="${e-mail}">E-mail:</p>
+		 <p th:text="${github}">GitHub:</p>
+		 <p th:text="${dataHora}">Data e hora</p>	 
+		 </div>
+	</body>
+</html>
